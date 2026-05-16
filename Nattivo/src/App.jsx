@@ -1,144 +1,289 @@
-import { useState } from "react";
+import { useState } from "react"
+import {
+  Menu,
+  X,
+  Heart,
+  Eye,
+  ShoppingCart
+} from "lucide-react"
 
-export default function App() {
-  const [menuOpen, setMenuOpen] = useState(false);
+function App() {
+
+  const [menuOpen, setMenuOpen] = useState(false)
+  const [selectedProduct, setSelectedProduct] = useState(null)
+
+  const products = [
+
+    {
+      id: 1,
+      name: "Beanie Black",
+      category: "Beanies",
+      price: "$39.900",
+      description: "Beanie premium streetwear edición limitada.",
+      image: "https://images.unsplash.com/photo-1521369909029-2afed882baee"
+    },
+
+    {
+      id: 2,
+      name: "Oversized Tee",
+      category: "Oversized",
+      price: "$89.900",
+      description: "Oversized fit premium cotton.",
+      image: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c"
+    },
+
+    {
+      id: 3,
+      name: "Concrete Jacket",
+      category: "Concrete Jacket",
+      price: "$280.000",
+      description: "Luxury concrete collection jacket.",
+      image: "https://images.unsplash.com/photo-1496747611176-843222e1e57c"
+    },
+
+    {
+      id: 4,
+      name: "Skimask Black",
+      category: "Skimask",
+      price: "$59.900",
+      description: "Premium skimask collection.",
+      image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e"
+    }
+
+  ]
 
   return (
-    <div className="bg-black text-white min-h-screen overflow-x-hidden">
+
+    <div className="bg-white min-h-screen text-black overflow-x-hidden">
+
       {/* NAVBAR */}
-      <header className="fixed top-0 left-0 w-full z-50 backdrop-blur-md bg-black/40 border-b border-white/5">
-        <div className="flex justify-between items-center px-6 md:px-12 py-5">
-          <h1 className="text-2xl md:text-3xl font-black tracking-[0.3em]">
-            NATTIVO
-          </h1>
 
-          <nav className="hidden md:flex gap-10 text-sm tracking-widest text-gray-300">
-            <a href="#home" className="hover:text-white transition">HOME</a>
-            <a href="#shop" className="hover:text-white transition">SHOP</a>
-            <a href="#about" className="hover:text-white transition">ABOUT</a>
-          </nav>
+      <nav className="bg-red-600 text-white flex justify-between items-center px-8 py-5 sticky top-0 z-50 shadow-xl">
 
-          <button className="hidden md:block bg-white text-black px-6 py-2 rounded-full font-semibold hover:scale-105 transition">
-            SHOP
+        <button onClick={() => setMenuOpen(true)}>
+          <Menu size={32} />
+        </button>
+
+        <h1 className="text-4xl font-black tracking-[10px]">
+          NATTIVO
+        </h1>
+
+        <button>
+          <ShoppingCart size={30} />
+        </button>
+
+      </nav>
+
+      {/* MODAL PRODUCT */}
+
+      {
+        selectedProduct && (
+
+          <div className="fixed inset-0 bg-black/80 z-50 flex justify-center items-center p-6">
+
+            <div className="bg-white max-w-5xl w-full rounded-[30px] overflow-hidden grid md:grid-cols-2 relative">
+
+              <button
+                onClick={() => setSelectedProduct(null)}
+                className="absolute top-5 right-5 bg-black text-white p-3 rounded-full"
+              >
+                <X size={22} />
+              </button>
+
+              <img
+                src={selectedProduct.image}
+                alt={selectedProduct.name}
+                className="w-full h-full object-cover"
+              />
+
+              <div className="p-10 flex flex-col justify-center">
+
+                <p className="text-red-600 uppercase font-bold tracking-[3px]">
+                  {selectedProduct.category}
+                </p>
+
+                <h2 className="text-5xl font-black mt-4">
+                  {selectedProduct.name}
+                </h2>
+
+                <p className="text-zinc-500 mt-8 text-lg leading-relaxed">
+                  {selectedProduct.description}
+                </p>
+
+                <p className="text-4xl text-red-600 font-black mt-10">
+                  {selectedProduct.price}
+                </p>
+
+                <button className="mt-10 bg-black text-white py-5 rounded-full text-lg font-bold hover:bg-red-600 transition">
+
+                  Añadir al carrito
+
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        )
+      }
+
+      {/* SIDEBAR */}
+
+      <div className={`fixed top-0 left-0 h-full w-[300px] bg-white shadow-2xl z-50 transition-transform duration-300 ${
+        menuOpen
+          ? "translate-x-0"
+          : "-translate-x-full"
+      }`}>
+
+        <div className="flex justify-between items-center p-6 border-b">
+
+          <h2 className="text-3xl font-black">
+            MENU
+          </h2>
+
+          <button onClick={() => setMenuOpen(false)}>
+            <X size={30} />
           </button>
 
-          {/* mobile */}
-          <button
-            onClick={() => setMenuOpen(!menuOpen)}
-            className="md:hidden text-white text-2xl"
-          >
-            ☰
-          </button>
         </div>
 
-        {menuOpen && (
-          <div className="md:hidden px-6 pb-6 flex flex-col gap-4 text-gray-300">
-            <a href="#home">HOME</a>
-            <a href="#shop">SHOP</a>
-            <a href="#about">ABOUT</a>
-          </div>
-        )}
-      </header>
+        <div className="flex flex-col gap-6 p-8 text-xl font-semibold">
+
+          <button className="hover:text-red-600 transition text-left">
+            Beanies
+          </button>
+
+          <button className="hover:text-red-600 transition text-left">
+            T-shirts
+          </button>
+
+          <button className="hover:text-red-600 transition text-left">
+            Skimask
+          </button>
+
+          <button className="hover:text-red-600 transition text-left">
+            Oversized
+          </button>
+
+          <button className="hover:text-red-600 transition text-left">
+            Box Fit
+          </button>
+
+        </div>
+
+      </div>
 
       {/* HERO */}
-      <section
-        id="home"
-        className="h-screen flex flex-col justify-center items-center text-center px-6"
-      >
-        <p className="text-gray-400 tracking-[0.4em] mb-4">
-          PREMIUM SNEAKERS
+
+      <section className="h-[80vh] bg-black flex flex-col justify-center items-center text-center text-white px-6">
+
+        <p className="uppercase tracking-[5px] text-red-500 font-bold mb-5">
+          Luxury Streetwear
         </p>
 
-        <h2 className="text-5xl md:text-8xl font-black uppercase leading-tight">
-          STEP INTO
-          <br />
-          LUXURY
-        </h2>
+        <h1 className="text-7xl md:text-9xl font-black leading-none">
+          NATTIVO
+        </h1>
 
-        <p className="text-gray-500 max-w-xl mt-6">
-          Sneakers de edición limitada, diseño premium y cultura streetwear en
-          su máxima expresión.
+        <p className="text-zinc-300 mt-8 max-w-2xl text-lg">
+          Moda premium inspirada en la cultura urbana y streetwear.
         </p>
 
-        <button className="mt-10 bg-green-500 hover:bg-green-400 px-10 py-4 rounded-full font-bold text-black transition hover:scale-105">
-          COMPRAR AHORA
+        <button className="mt-10 bg-red-600 hover:bg-white hover:text-black transition px-10 py-5 rounded-full font-bold text-lg">
+
+          SHOP NOW
+
         </button>
+
       </section>
 
       {/* PRODUCTS */}
-      <section id="shop" className="px-6 md:px-12 py-20">
-        <div className="flex justify-between items-end mb-10">
-          <h3 className="text-2xl md:text-4xl font-black tracking-widest">
-            FEATURED DROPS
-          </h3>
-          <p className="text-gray-500">Limited stock</p>
+
+      <section className="px-10 py-20">
+
+        <div className="flex justify-between items-center mb-14">
+
+          <h2 className="text-6xl font-black">
+            FEATURED
+          </h2>
+
+          <p className="text-zinc-500">
+            Limited collection
+          </p>
+
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
-          {[
-            {
-              name: "Jordan 1 Chicago",
-              img: "https://images.stockx.com/images/Air-Jordan-1-Retro-High-OG-Chicago-Lost-and-Found.jpg",
-            },
-            {
-              name: "Nike Dunk Panda",
-              img: "https://images.stockx.com/images/Nike-Dunk-Low-Panda-2021-W.jpg",
-            },
-            {
-              name: "Jordan 4 Military",
-              img: "https://images.stockx.com/images/Air-Jordan-4-Retro-Military-Black.jpg",
-            },
-          ].map((item, i) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+
+          {products.map((product) => (
+
             <div
-              key={i}
-              className="bg-zinc-900 rounded-3xl overflow-hidden hover:scale-[1.03] transition duration-300"
+              key={product.id}
+              className="bg-white rounded-[30px] overflow-hidden shadow-xl hover:-translate-y-2 transition duration-300"
             >
-              <div className="h-72 overflow-hidden">
+
+              <div className="relative">
+
                 <img
-                  src={item.img}
-                  className="w-full h-full object-cover"
-                  alt={item.name}
+                  src={product.image}
+                  alt={product.name}
+                  className="w-full h-[450px] object-cover"
                 />
+
+                <div className="absolute top-4 right-4 flex flex-col gap-3">
+
+                  <button className="bg-white p-3 rounded-full shadow hover:bg-red-600 hover:text-white transition">
+                    <Heart size={20} />
+                  </button>
+
+                  <button
+                    onClick={() => setSelectedProduct(product)}
+                    className="bg-white p-3 rounded-full shadow hover:bg-black hover:text-white transition"
+                  >
+                    <Eye size={20} />
+                  </button>
+
+                  <button className="bg-white p-3 rounded-full shadow hover:bg-red-600 hover:text-white transition">
+                    <ShoppingCart size={20} />
+                  </button>
+
+                </div>
+
               </div>
 
               <div className="p-6">
-                <h4 className="text-xl font-bold tracking-wide">
-                  {item.name}
-                </h4>
-                <p className="text-gray-500 mt-2">Limited Edition</p>
 
-                <button className="mt-5 w-full bg-white text-black py-3 rounded-full font-semibold hover:bg-gray-200 transition">
-                  Ver producto
-                </button>
+                <p className="text-sm uppercase text-red-600 font-bold mb-2">
+                  {product.category}
+                </p>
+
+                <h3 className="text-2xl font-black">
+                  {product.name}
+                </h3>
+
+                <p className="text-zinc-500 mt-3">
+                  {product.description}
+                </p>
+
+                <p className="text-red-600 text-2xl font-black mt-5">
+                  {product.price}
+                </p>
+
               </div>
+
             </div>
+
           ))}
+
         </div>
+
       </section>
 
-      {/* BANNER */}
-      <section className="px-6 md:px-12 py-20">
-        <div className="bg-zinc-900 rounded-3xl p-10 md:p-20 text-center">
-          <h3 className="text-3xl md:text-6xl font-black uppercase">
-            Exclusive Streetwear
-          </h3>
-          <p className="text-gray-400 mt-4 max-w-xl mx-auto">
-            Acceso a drops limitados, sneakers exclusivos y colecciones premium.
-          </p>
-
-          <button className="mt-8 bg-green-500 text-black px-10 py-4 rounded-full font-bold hover:scale-105 transition">
-            UNIRME
-          </button>
-        </div>
-      </section>
-
-      {/* FOOTER */}
-      <footer className="px-6 md:px-12 py-10 border-t border-white/10 text-gray-500 text-sm">
-        <div className="flex flex-col md:flex-row justify-between gap-6">
-          <p>© {new Date().getFullYear()} Nattivo Premium</p>
-          <p>Streetwear & Sneakers Culture</p>
-        </div>
-      </footer>
     </div>
-  );
+
+  )
 }
+
+export default App
