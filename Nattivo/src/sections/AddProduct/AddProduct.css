@@ -1,0 +1,26 @@
+.add-product-section {
+  background: #f8f7f4;
+}
+
+.input-field {
+  width: 100%;
+  border: 1px solid #d1d5db;
+  border-radius: 1rem;
+  background: #f8fafc;
+  color: #111827;
+  padding: 1rem 1.1rem;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.input-field:focus {
+  border-color: #111827;
+  box-shadow: 0 0 0 4px rgba(17, 24, 39, 0.08);
+}
+
+@media (max-width: 1024px) {
+  .add-product-section {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+}

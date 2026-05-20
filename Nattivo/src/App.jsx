@@ -10,6 +10,7 @@ import SkimaskPage from './pages/SkimaskPage'
 import BandanasPage from './pages/BandanasPage'
 import OversizedPage from './pages/OversizedPage'
 import BoxFitPage from './pages/BoxFitPage'
+import ProductFormPage from './pages/ProductFormPage'
 
 const NAV_ITEMS = [
   { to: '/concrete-jacket', label: 'Concrete Jacket' },
@@ -18,7 +19,8 @@ const NAV_ITEMS = [
   { to: '/skimask', label: 'Skimask' },
   { to: '/bandanas', label: 'Bandanas' },
   { to: '/oversized', label: 'Oversized' },
-  { to: '/box-fit', label: 'Box Fit' }
+  { to: '/box-fit', label: 'Box Fit' },
+  { to: '/add-product', label: 'Agregar producto' }
 ]
 
 function App() {
@@ -44,6 +46,7 @@ function App() {
         <Route path="/bandanas" element={<BandanasPage />} />
         <Route path="/oversized" element={<OversizedPage />} />
         <Route path="/box-fit" element={<BoxFitPage />} />
+        <Route path="/add-product" element={<ProductFormPage />} />
       </Routes>
     </BrowserRouter>
   )
