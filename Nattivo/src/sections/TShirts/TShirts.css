@@ -1,0 +1,21 @@
+.tshirts-section {
+  background: #f8f7f4;
+}
+
+.tshirts-section h2 {
+  color: #111827;
+}
+
+.category-sidebar button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.85rem 0;
+}
+
+@media (max-width: 1024px) {
+  .category-sidebar {
+    max-width: 100%;
+  }
+}

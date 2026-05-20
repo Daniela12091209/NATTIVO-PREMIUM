@@ -1,0 +1,33 @@
+.dashboard-page {
+  min-height: 100vh;
+}
+.hero-section {
+  min-height: 80vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1400&q=80');
+  background-size: cover;
+  background-position: center;
+}
+.hero-background {
+  background-image: inherit;
+  background-size: cover;
+  background-position: center;
+}
+.hero-overlay {
+  background: rgba(0, 0, 0, 0.55);
+}
+.hero-section h1 {
+  letter-spacing: -0.04em;
+}
+.featured-section {
+  background: #fff;
+}
+
+@media (min-width: 768px) {
+  .hero-section {
+    min-height: 85vh;
+  }
+}

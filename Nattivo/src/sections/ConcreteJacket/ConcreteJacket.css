@@ -1,0 +1,16 @@
+.concrete-section {
+  background: transparent;
+}
+.concrete-section h2 {
+  color: #111827;
+}
+
+/* Grid tweaks for product listing */
+.concrete-section .product-grid img {
+  height: 260px;
+  object-fit: cover;
+}
+
+@media (min-width: 768px) {
+  .concrete-section .product-grid img { height: 320px }
+}

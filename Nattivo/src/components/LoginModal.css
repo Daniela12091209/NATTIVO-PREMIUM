@@ -1,0 +1,39 @@
+.login-modal {
+  backdrop-filter: blur(5px);
+}
+.login-panel {
+  min-width: 340px;
+  width: 100%;
+}
+.login-input {
+  width: 100%;
+  border: 1px solid #d1d5db;
+  border-radius: 1rem;
+  padding: 1rem 1rem;
+  background: #f8fafc;
+  color: #111827;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+.login-input:focus {
+  border-color: #111827;
+}
+.login-eye {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  color: #71717a;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.login-close {
+  transition: color 0.2s ease;
+}
+.login-close:hover {
+  color: #111827;
+}
