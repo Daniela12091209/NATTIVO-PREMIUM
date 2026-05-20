@@ -13,8 +13,10 @@ import BoxFitPage from './pages/BoxFitPage'
 import ProductFormPage from './pages/ProductFormPage'
 import AllProductsPage from './pages/AllProductsPage'
 import CategoriesPage from './pages/CategoriesPage'
+import HomePage from './pages/HomePage'
 
 const NAV_ITEMS = [
+  { to: '/', label: 'Inicio' },
   { to: '/concrete-jacket', label: 'Concrete Jacket' },
   { to: '/t-shirts', label: 'T-shirts' },
   { to: '/beanies', label: 'Beanies' },
@@ -42,7 +44,8 @@ function App() {
       <LoginModal open={loginOpen} onClose={() => setLoginOpen(false)} />
 
       <Routes>
-        <Route path="/" element={<Dashboard />} />
+        <Route path="/" element={<HomePage />} />
+        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/concrete-jacket" element={<ConcreteJacketPage />} />
         <Route path="/t-shirts" element={<TShirtsPage />} />
         <Route path="/beanies" element={<BeaniesPage />} />
