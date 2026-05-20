@@ -1,7 +1,17 @@
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { getCategories, buildCategoryTree } from '../../services/categoryService'
 import { FEATURED_PRODUCTS, HERO_VIDEO } from '../../services/homeService'
 import './Home.css'
+
+const CATEGORY_ROUTE = {
+  bandanas: '/bandanas',
+  beanies: '/beanies',
+  boxfit: '/box-fit',
+  oversized: '/oversized',
+  skimask: '/skimask',
+  jackets: '/concrete-jacket'
+}
 
 function Home() {
   const [categories, setCategories] = useState([])
@@ -32,45 +42,56 @@ function Home() {
         <div className="home-hero-content mx-auto px-6 py-24 text-center">
           <p className="mb-6 text-sm uppercase tracking-[0.3em] text-red-500">Nattivo Premium</p>
           <h1 className="mb-6 text-5xl font-black uppercase tracking-[0.2em] sm:text-6xl">Streetwear con actitud</h1>
-          <p className="mx-auto mb-8 max-w-3xl text-base leading-8 text-white/80">
-            Una replica del sitio oficial con la estética de la tienda, el slider hero y los productos destacados de la colección.
+          <p className="mx-auto mb-8 max-w-3xl text-base leading-8 text-white/75">
+            Estrena una experiencia visual más intensa: navegación mejorada, categorías destacadas y productos estilo tienda real.
           </p>
-          <a href="#featured-products" className="home-hero-button inline-flex items-center justify-center rounded-full bg-white px-8 py-4 text-sm font-bold uppercase text-black transition hover:bg-zinc-100">
-            Ver colección
-          </a>
+          <div className="home-hero-actions mx-auto flex max-w-xl flex-col gap-4 sm:flex-row sm:justify-center">
+            <a href="#featured-products" className="home-hero-button inline-flex items-center justify-center rounded-full bg-white px-8 py-4 text-sm font-bold uppercase text-black transition hover:bg-zinc-100">
+              Ver colección
+            </a>
+            <a href="/categories" className="inline-flex items-center justify-center rounded-full border border-white/20 bg-white/5 px-8 py-4 text-sm font-bold uppercase text-white transition hover:border-white/40 hover:bg-white/10">
+              Ver categorías
+            </a>
+          </div>
         </div>
       </section>
 
-      <section className="home-categories py-20 bg-[#111111] text-white">
+      <section className="home-categories py-20 bg-[#070707] text-white">
         <div className="mx-auto max-w-[1400px] px-6">
           <div className="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
             <div>
               <p className="text-sm uppercase tracking-[0.3em] text-red-500">Categorías</p>
-              <h2 className="mt-4 text-4xl font-black uppercase">Explora por categorías</h2>
+              <h2 className="mt-4 text-4xl font-black uppercase">Explora lo mejor de NATTIVO</h2>
             </div>
-            <span className="rounded-full border border-white/10 bg-white/5 px-4 py-3 text-sm uppercase text-white/80">{loading ? 'Cargando...' : `${categories.length} categorías principales`}</span>
+            <span className="rounded-full border border-white/10 bg-white/5 px-4 py-3 text-sm uppercase text-white/80">
+              {loading ? 'Cargando...' : `${categories.length} categorías principales`}
+            </span>
           </div>
 
           <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
             {loading ? (
               Array.from({ length: 6 }).map((_, index) => (
-                <div key={index} className="min-h-[220px] rounded-[30px] bg-zinc-900/60 p-8 shadow-sm animate-pulse" />
+                <div key={index} className="min-h-[260px] rounded-[30px] bg-zinc-900/60 p-8 shadow-sm animate-pulse" />
               ))
             ) : (
               categories.map((category) => (
-                <article key={category.id} className="group overflow-hidden rounded-[30px] border border-white/10 bg-white/5 p-6 transition hover:-translate-y-1 hover:border-white/20">
-                  <div className="mb-6 flex items-center justify-between gap-4">
+                <article key={category.id} className="group overflow-hidden rounded-[30px] border border-white/10 bg-white/5 p-6 shadow-xl shadow-black/20 transition hover:-translate-y-1 hover:border-white/20">
+                  <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                     <div>
                       <h3 className="text-2xl font-black uppercase tracking-[0.15em]">{category.name}</h3>
-                      <p className="mt-3 text-sm text-white/75">{category.count} productos</p>
+                      <p className="mt-3 text-sm text-white/70">{category.count} producto{category.count === 1 ? '' : 's'}</p>
                     </div>
-                    <span className="rounded-full bg-red-500 px-3 py-2 text-xs uppercase tracking-[0.2em] text-white">{category.slug}</span>
+                    <span className="rounded-full bg-red-500 px-3 py-2 text-xs uppercase tracking-[0.2em] text-white">
+                      {category.slug}
+                    </span>
                   </div>
+
                   {category.image ? (
-                    <img src={category.image.src} alt={category.image.alt || category.name} className="h-52 w-full rounded-[24px] object-cover" />
+                    <img src={category.image.src} alt={category.image.alt || category.name} className="h-56 w-full rounded-[24px] object-cover transition duration-500 group-hover:scale-105" />
                   ) : (
-                    <div className="mb-4 h-52 rounded-[24px] bg-white/10" />
+                    <div className="mb-4 h-56 rounded-[24px] bg-white/10" />
                   )}
+
                   {category.children?.length ? (
                     <div className="mt-6 rounded-[24px] bg-white/5 p-4 text-sm text-white/80">
                       <p className="mb-3 uppercase tracking-[0.2em] text-white/60">Subcategorías</p>
@@ -84,6 +105,16 @@ function Home() {
                       </ul>
                     </div>
                   ) : null}
+
+                  <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                    <Link
+                      to={CATEGORY_ROUTE[category.slug] || '/categories'}
+                      className="inline-flex items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-bold uppercase text-black transition hover:bg-zinc-100"
+                    >
+                      Ver categoría
+                    </Link>
+                    <span className="text-xs uppercase tracking-[0.3em] text-white/40">{category.children?.length ? `${category.children.length} subcategoría(s)` : 'Sin subcategorías'}</span>
+                  </div>
                 </article>
               ))
             )}
@@ -91,7 +122,7 @@ function Home() {
         </div>
       </section>
 
-      <section id="featured-products" className="home-products py-20 bg-[#070707] text-white">
+      <section id="featured-products" className="home-products py-20 bg-[#030303] text-white">
         <div className="mx-auto max-w-[1400px] px-6">
           <div className="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
             <div>

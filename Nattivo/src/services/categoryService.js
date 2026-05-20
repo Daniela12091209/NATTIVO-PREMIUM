@@ -1,4 +1,4 @@
-const CATEGORY_API = 'https://nattivopremium.com/wp-json/wc/v3/products/categories'
+export const CATEGORY_API = 'https://nattivopremium.com/wp-json/wc/v3/products/categories'
 
 const DEFAULT_CATEGORIES = [
   {

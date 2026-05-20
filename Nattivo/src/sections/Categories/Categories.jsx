@@ -1,6 +1,16 @@
 import { useEffect, useMemo, useState } from 'react'
-import { getCategories, buildCategoryTree } from '../../services/categoryService'
+import { Link } from 'react-router-dom'
+import { getCategories, buildCategoryTree, CATEGORY_API } from '../../services/categoryService'
 import './Categories.css'
+
+const CATEGORY_ROUTE = {
+  bandanas: '/bandanas',
+  beanies: '/beanies',
+  boxfit: '/box-fit',
+  oversized: '/oversized',
+  skimask: '/skimask',
+  jackets: '/concrete-jacket'
+}
 
 function Categories() {
   const [categories, setCategories] = useState([])
@@ -27,13 +37,13 @@ function Categories() {
   }, [categories])
 
   return (
-    <section className="categories-section py-20 bg-[#f5f5f5] text-black">
+    <section className="categories-section py-20 bg-[#f7f7f7] text-black">
       <div className="mx-auto max-w-[1400px] px-6">
-        <div className="mb-12 rounded-[30px] bg-white p-10 shadow-sm">
-          <p className="text-sm uppercase tracking-[0.3em] text-red-600">Colección</p>
+        <div className="mb-12 overflow-hidden rounded-[30px] bg-gradient-to-br from-zinc-950 via-zinc-900 to-zinc-800 p-10 text-white shadow-2xl">
+          <p className="text-sm uppercase tracking-[0.3em] text-red-500">Colección</p>
           <h1 className="mt-4 text-5xl font-black">Categorías NATTIVO</h1>
-          <p className="mt-4 max-w-3xl text-base leading-8 text-zinc-600">
-            Explora la tienda por categorías oficiales y subcategorías. Esta vista replica el listado de categorías de productos usando los datos del endpoint de WooCommerce.
+          <p className="mt-4 max-w-3xl text-base leading-8 text-white/70">
+            Explora la tienda por categorías oficiales y subcategorías. Esta vista replica el listado real usando datos de WooCommerce con un diseño más claro y atractivo.
           </p>
         </div>
 
@@ -65,7 +75,7 @@ function Categories() {
               ) : (
                 <div className="categories-grid">
                   {categories.map((category) => (
-                    <article key={category.id} className="category-card group overflow-hidden rounded-[30px] border border-zinc-200 bg-white shadow-sm transition hover:-translate-y-1">
+                    <article key={category.id} className="category-card group overflow-hidden rounded-[30px] border border-zinc-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
                       <div className="category-card-image relative overflow-hidden">
                         <img
                           src={category.image?.src || 'https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=900&q=80'}
@@ -76,7 +86,7 @@ function Categories() {
                       <div className="space-y-4 p-6">
                         <div className="flex items-center justify-between gap-4">
                           <div>
-                            <h3 className="text-2xl font-black">{category.name}</h3>
+                            <h3 className="text-2xl font-black uppercase tracking-[0.03em]">{category.name}</h3>
                             <p className="mt-2 text-sm text-zinc-500">{category.count} producto{category.count === 1 ? '' : 's'}</p>
                           </div>
                           <span className="rounded-full bg-red-600 px-4 py-2 text-xs uppercase tracking-[0.2em] text-white">
@@ -97,6 +107,18 @@ function Categories() {
                             </ul>
                           </div>
                         ) : null}
+
+                        <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                          <Link
+                            to={CATEGORY_ROUTE[category.slug] || '/categories'}
+                            className="inline-flex items-center justify-center rounded-full bg-red-600 px-6 py-3 text-sm font-bold uppercase text-white transition hover:bg-red-700"
+                          >
+                            Ir a categoría
+                          </Link>
+                          <span className="text-xs uppercase tracking-[0.3em] text-zinc-500">
+                            {category.children?.length ? `${category.children.length} subcategoría(s)` : 'Sin subcategorías'}
+                          </span>
+                        </div>
                       </div>
                     </article>
                   ))}
@@ -108,16 +130,16 @@ function Categories() {
           <aside className="rounded-[30px] border border-zinc-200 bg-white p-8 shadow-sm">
             <h2 className="mb-6 text-2xl font-black">Detalles</h2>
             <p className="text-sm text-zinc-600 leading-7">
-              Las categorías se agrupan por nivel. Las subcategorías de T-shirts aparecen dentro de su categoría padre para que la estructura sea clara y fácil de navegar.
+              Las categorías se agrupan por nivel. Las subcategorías se muestran junto a su categoría principal para una navegación más clara.
             </p>
             <div className="mt-8 space-y-4">
               <div className="rounded-[24px] bg-zinc-100 p-5">
                 <p className="text-sm uppercase tracking-[0.2em] text-zinc-500">Fuente de datos</p>
-                <p className="mt-2 text-sm text-zinc-700">{CATEGORY_API}</p>
+                <p className="mt-2 break-words text-sm text-zinc-700">{CATEGORY_API}</p>
               </div>
               <div className="rounded-[24px] bg-zinc-100 p-5">
                 <p className="text-sm uppercase tracking-[0.2em] text-zinc-500">Modo</p>
-                <p className="mt-2 text-sm text-zinc-700">Replicar JSON de la API de WooCommerce con manejo de carga y fallback local.</p>
+                <p className="mt-2 text-sm text-zinc-700">Replicación de WooCommerce con carga sensible y visual profesional.</p>
               </div>
             </div>
           </aside>
