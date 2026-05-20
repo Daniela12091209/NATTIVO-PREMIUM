@@ -61,7 +61,11 @@ function Dashboard() {
             <button onClick={() => setSelectedProduct(null)} className="absolute top-5 right-5 bg-black text-white p-3 rounded-full">
               <X size={22} />
             </button>
-            <img src={selectedProduct.image} alt={selectedProduct.name} className="w-full h-full object-cover" />
+            {selectedProduct.image ? (
+              <img src={selectedProduct.image} alt={selectedProduct.name} className="w-full h-full object-cover" />
+            ) : (
+              <div className="w-full h-full bg-zinc-100 flex items-center justify-center text-zinc-500">Sin imagen</div>
+            )}
             <div className="p-10 flex flex-col justify-center">
               <p className="text-red-600 uppercase font-bold tracking-[3px]">{selectedProduct.category}</p>
               <h2 className="text-5xl font-black mt-4">{selectedProduct.name}</h2>

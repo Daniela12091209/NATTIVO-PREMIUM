@@ -5,7 +5,11 @@ function ProductCard({ product, onView }) {
     <div className="bg-white rounded-[20px] overflow-hidden shadow-md hover:-translate-y-1 transition">
 
       <div className="relative">
-        <img src={product.image} alt={product.name} className="w-full h-64 object-cover" />
+        {product.image ? (
+          <img src={product.image} alt={product.name} className="w-full h-64 object-cover" />
+        ) : (
+          <div className="w-full h-64 bg-zinc-200 flex items-center justify-center text-zinc-500">Imagen no disponible</div>
+        )}
 
         <div className="absolute top-3 right-3 flex flex-col gap-2">
           <button className="bg-white p-2 rounded-full shadow hover:bg-red-600 hover:text-white transition"><Heart size={16} /></button>

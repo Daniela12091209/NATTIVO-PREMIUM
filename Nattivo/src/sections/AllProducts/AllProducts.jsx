@@ -180,7 +180,11 @@ function AllProducts() {
               <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
                 {filteredProducts.map((product) => (
                   <article key={product.id} className="group overflow-hidden rounded-[30px] border border-zinc-200 bg-[#fafafa] p-4 shadow-sm transition hover:-translate-y-1">
-                    <img src={product.image} alt={product.name} className="mb-4 h-56 w-full rounded-[24px] object-cover" />
+                    {product.image ? (
+                      <img src={product.image} alt={product.name} className="mb-4 h-56 w-full rounded-[24px] object-cover" />
+                    ) : (
+                      <div className="mb-4 h-56 w-full rounded-[24px] bg-zinc-100 flex items-center justify-center text-zinc-500">Sin imagen</div>
+                    )}
                     <div className="space-y-3">
                       <div className="flex items-center justify-between gap-3 text-xs uppercase tracking-[0.2em] text-zinc-500">
                         <span>{CLASSIFICATIONS.find((item) => item.value === product.classification)?.label || product.classification}</span>

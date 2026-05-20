@@ -122,7 +122,11 @@ function TShirts() {
               {filteredProducts.map((product) => (
                 <article key={product.id} className="group overflow-hidden rounded-[30px] bg-white shadow-sm transition hover:-translate-y-1">
                   <div className="relative overflow-hidden">
-                    <img src={product.image} alt={product.name} className="h-80 w-full object-cover transition duration-500 group-hover:scale-105" />
+                    {product.image ? (
+                      <img src={product.image} alt={product.name} className="h-80 w-full object-cover transition duration-500 group-hover:scale-105" />
+                    ) : (
+                      <div className="h-80 w-full bg-zinc-100 flex items-center justify-center text-zinc-500">Sin imagen</div>
+                    )}
                     {product.tag && (
                       <span className="absolute left-4 top-4 rounded-full bg-black px-3 py-1 text-[10px] uppercase tracking-[0.3em] text-white">
                         {product.tag}
