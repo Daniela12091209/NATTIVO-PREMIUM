@@ -70,6 +70,57 @@ function resolveImageInput(file, image) {
 }
 
 export async function getProducts() {
+  // Try remote WooCommerce API first (read-only). Provide Vite env vars:
+  // VITE_WC_KEY and VITE_WC_SECRET. If not available or fetch fails, fall back
+  // to stored/local products.
+  const PRODUCTS_API = 'https://nattivopremium.com/wp-json/wc/v3/products'
+
+  async function fetchRemote() {
+    try {
+      if (typeof window === 'undefined') return null
+      const key = import.meta.env.VITE_WC_KEY || null
+      const secret = import.meta.env.VITE_WC_SECRET || null
+      const url = key && secret
+        ? `${PRODUCTS_API}?per_page=100&consumer_key=${key}&consumer_secret=${secret}`
+        : `${PRODUCTS_API}?per_page=100`
+
+      const res = await fetch(url)
+      if (!res.ok) throw new Error('remote fetch failed')
+      const data = await res.json()
+
+      // map remote shape to local product shape
+      const mapped = data.map((p) => {
+        const image = (p.images && p.images[0] && p.images[0].src) || ''
+        const category = (p.categories && p.categories[0] && p.categories[0].slug) || 't-shirts'
+        // try to get size from attributes
+        let size = 'One Size'
+        if (Array.isArray(p.attributes)) {
+          const attr = p.attributes.find((a) => /size/i.test(a.name || ''))
+          if (attr && attr.options && attr.options.length) size = attr.options[0]
+        }
+        const price = p.price ? (p.price + '') : (p.regular_price ? p.regular_price + '' : '')
+
+        return {
+          id: p.id,
+          name: p.name || p.title || 'Producto',
+          price: price ? `$${price}` : p.price_html || '',
+          size,
+          description: p.description ? p.description.replace(/<[^>]+>/g, '').trim() : '',
+          classification: category,
+          image: image || ''
+        }
+      })
+
+      return mapped
+    } catch (err) {
+      console.warn('Could not fetch remote products:', err)
+      return null
+    }
+  }
+
+  const remote = await fetchRemote()
+  if (remote && remote.length) return remote
+
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(getStoredProducts())
