@@ -1,147 +1,107 @@
 import { useMemo, useState } from 'react'
+import ProductCard from '../../components/ProductCard'
 import './TShirts.css'
 
 const PRODUCTS = [
   {
-    id: 1,
+    id: 5,
     name: 'Basic Boxfit – Black',
     category: 'Box Fit',
-    price: '$79,900 – $89,900',
+    price: '$79,900',
     tag: 'SALE',
+    description: 'Corte relajado con estilo urbano premium.',
     image: 'https://images.unsplash.com/photo-1520975865985-e2cce8e5bbc4?auto=format&fit=crop&w=900&q=80'
   },
   {
-    id: 2,
+    id: 6,
     name: 'Basic Boxfit – White',
     category: 'Box Fit',
-    price: '$79,900 – $89,900',
+    price: '$79,900',
     tag: 'SALE',
+    description: 'Minimalismo blanco con detalles altos.',
     image: 'https://images.unsplash.com/photo-1521572267360-ee0c0fb45a3b?auto=format&fit=crop&w=900&q=80'
   },
   {
-    id: 3,
+    id: 7,
     name: 'Basic Oversize – White',
     category: 'Oversized',
-    price: '$69,900 – $89,900',
-    tag: 'SALE',
+    price: '$69,900',
+    tag: 'NEW',
+    description: 'Silhouette amplia y cómoda para use diario.',
     image: 'https://images.unsplash.com/photo-1495121605193-b116b5b9c5d1?auto=format&fit=crop&w=900&q=80'
   },
   {
-    id: 4,
+    id: 8,
     name: 'Basic Boxfit – Sand',
     category: 'Box Fit',
-    price: '$79,900 – $89,900',
-    tag: 'SALE',
+    price: '$79,900',
+    tag: 'NEW',
+    description: 'Tono neutro con corte premium.',
     image: 'https://images.unsplash.com/photo-1526178616032-7a1f8b89f5bf?auto=format&fit=crop&w=900&q=80'
   }
 ]
 
-const CATEGORIES = [
-  { name: 'Bandanas', count: 2 },
-  { name: 'Beanies', count: 12 },
-  { name: 'Jackets', count: 1 },
-  { name: 'Skimask', count: 1 },
-  { name: 'T-shirts', count: 9, children: [
-      { name: 'Box Fit', count: 4 },
-      { name: 'Oversized', count: 4 }
-    ]
-  }
-]
+const CATEGORIES = ['All', 'Box Fit', 'Oversized']
 
 function TShirts() {
-  const [selectedCategory, setSelectedCategory] = useState('T-shirts')
+  const [selectedCategory, setSelectedCategory] = useState('All')
   const [sortOption, setSortOption] = useState('popularidad')
 
   const filteredProducts = useMemo(() => {
-    if (selectedCategory === 'T-shirts') return PRODUCTS
-    return PRODUCTS.filter((product) => product.category === selectedCategory)
-  }, [selectedCategory])
+    const base = selectedCategory === 'All'
+      ? PRODUCTS
+      : PRODUCTS.filter((product) => product.category === selectedCategory)
+
+    if (sortOption === 'precio_bajo') {
+      return [...base].sort((a, b) => parseInt(a.price.replace(/[^0-9]/g, '')) - parseInt(b.price.replace(/[^0-9]/g, '')))
+    }
+    if (sortOption === 'precio_alto') {
+      return [...base].sort((a, b) => parseInt(b.price.replace(/[^0-9]/g, '')) - parseInt(a.price.replace(/[^0-9]/g, '')))
+    }
+    return base
+  }, [selectedCategory, sortOption])
 
   return (
-    <section id="t-shirts" className="tshirts-section py-20 bg-[#f5f5f5]">
+    <section id="t-shirts" className="tshirts-section py-20 bg-white text-black">
       <div className="max-w-[1400px] mx-auto px-6">
-        <div className="grid gap-8 lg:grid-cols-[280px_minmax(0,1fr)]">
-          <aside className="category-sidebar rounded-[30px] border border-zinc-200 bg-white p-6 shadow-sm">
-            <div className="flex items-center justify-between mb-6">
-              <h3 className="text-lg font-black uppercase">Categoria</h3>
-              <span className="text-sm text-zinc-500">▾</span>
-            </div>
-            <div className="space-y-3 text-sm text-zinc-700">
-              {CATEGORIES.map((category) => (
-                <div key={category.name}>
-                  <button
-                    type="button"
-                    onClick={() => setSelectedCategory(category.name)}
-                    className={`w-full text-left ${selectedCategory === category.name ? 'font-black text-black' : 'font-medium text-zinc-700 hover:text-black'}`}>
-                    {category.name} <span className="text-zinc-400">({category.count})</span>
-                  </button>
-                  {category.children && selectedCategory === category.name && (
-                    <div className="ml-4 mt-2 space-y-2 text-sm">
-                      {category.children.map((child) => (
-                        <button
-                          key={child.name}
-                          type="button"
-                          onClick={() => setSelectedCategory(child.name)}
-                          className={`block w-full text-left ${selectedCategory === child.name ? 'font-black text-black' : 'text-zinc-600 hover:text-black'}`}>
-                          {child.name} <span className="text-zinc-400">({child.count})</span>
-                        </button>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
-          </aside>
-
+        <div className="mb-10 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <div className="mb-8 flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-              <div>
-                <p className="text-sm uppercase text-zinc-500">Inicio › Tienda › T-shirts</p>
-                <h2 className="text-5xl font-black mt-4">T-shirts</h2>
-              </div>
-              <div className="flex items-center gap-4">
-                <label className="text-sm uppercase text-zinc-500">Ordenar por</label>
-                <select
-                  value={sortOption}
-                  onChange={(event) => setSortOption(event.target.value)}
-                  className="rounded-full border border-zinc-300 bg-white px-4 py-3 text-sm text-zinc-700 outline-none transition focus:border-black"
-                >
-                  <option value="popularidad">Popularidad</option>
-                  <option value="precio_bajo">Precio: menor a mayor</option>
-                  <option value="precio_alto">Precio: mayor a menor</option>
-                </select>
-              </div>
-            </div>
-
-            <div className="mb-6 inline-flex items-center gap-3 rounded-full border border-zinc-200 bg-white px-4 py-3 text-sm font-semibold text-zinc-600 shadow-sm">
-              {selectedCategory}
-              <button type="button" onClick={() => setSelectedCategory('T-shirts')} className="rounded-full bg-zinc-100 px-3 py-1 text-xs uppercase text-zinc-500">x</button>
-            </div>
-
-            <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-              {filteredProducts.map((product) => (
-                <article key={product.id} className="group overflow-hidden rounded-[30px] bg-white shadow-sm transition hover:-translate-y-1">
-                  <div className="relative overflow-hidden">
-                    {product.image ? (
-                      <img src={product.image} alt={product.name} className="h-80 w-full object-cover transition duration-500 group-hover:scale-105" />
-                    ) : (
-                      <div className="h-80 w-full bg-zinc-100 flex items-center justify-center text-zinc-500">Sin imagen</div>
-                    )}
-                    {product.tag && (
-                      <span className="absolute left-4 top-4 rounded-full bg-black px-3 py-1 text-[10px] uppercase tracking-[0.3em] text-white">
-                        {product.tag}
-                      </span>
-                    )}
-                  </div>
-                  <div className="space-y-3 p-6">
-                    <p className="text-xs uppercase tracking-[0.2em] text-zinc-500">{product.category}</p>
-                    <h3 className="text-xl font-black">{product.name}</h3>
-                    <p className="text-sm text-zinc-600">{product.price}</p>
-                  </div>
-                </article>
-              ))}
-            </div>
+            <p className="text-sm uppercase tracking-[0.3em] text-red-600 font-semibold">Colección</p>
+            <h2 className="text-5xl font-black">T-shirts</h2>
+            <p className="mt-4 max-w-2xl text-zinc-600">Selecciona tu estilo streetwear con una experiencia limpia, sin barras laterales y con navegación intuitiva.</p>
           </div>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <label className="block">
+              <span className="text-xs uppercase tracking-[0.3em] text-zinc-500">Filtrar</span>
+              <select
+                value={selectedCategory}
+                onChange={(event) => setSelectedCategory(event.target.value)}
+                className="mt-2 w-full rounded-full border border-zinc-300 bg-white px-4 py-4 text-sm text-zinc-700 outline-none transition focus:border-black"
+              >
+                {CATEGORIES.map((category) => (
+                  <option key={category} value={category}>{category}</option>
+                ))}
+              </select>
+            </label>
+            <label className="block">
+              <span className="text-xs uppercase tracking-[0.3em] text-zinc-500">Ordenar</span>
+              <select
+                value={sortOption}
+                onChange={(event) => setSortOption(event.target.value)}
+                className="mt-2 w-full rounded-full border border-zinc-300 bg-white px-4 py-4 text-sm text-zinc-700 outline-none transition focus:border-black"
+              >
+                <option value="popularidad">Popularidad</option>
+                <option value="precio_bajo">Precio menor</option>
+                <option value="precio_alto">Precio mayor</option>
+              </select>
+            </label>
+          </div>
+        </div>
+
+        <div className="grid gap-8 sm:grid-cols-2 xl:grid-cols-3">
+          {filteredProducts.map((product) => (
+            <ProductCard key={product.id} product={product} viewUrl={`/product/${product.id}`} />
+          ))}
         </div>
       </div>
     </section>

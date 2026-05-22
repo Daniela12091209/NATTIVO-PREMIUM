@@ -8,7 +8,12 @@ const DEFAULT_PRODUCTS = [
     size: 'One Size',
     description: 'Gorro suave con bordes cosidos para un look urbano y flexible.',
     classification: 'beanies',
-    image: 'https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=900&q=80'
+    image: 'https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=900&q=80',
+    gallery: [
+      'https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1520975865985-e2cce8e5bbc4?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1517153294491-81e3de4bd3c4?auto=format&fit=crop&w=1200&q=80'
+    ]
   },
   {
     id: 2,
@@ -17,7 +22,12 @@ const DEFAULT_PRODUCTS = [
     size: 'L',
     description: 'Camiseta oversized con costuras reforzadas y estilo relajado.',
     classification: 'oversized',
-    image: 'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=900&q=80'
+    image: 'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=900&q=80',
+    gallery: [
+      'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1495121605193-b116b5b9c5d1?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1521572267360-ee0c0fb45a3b?auto=format&fit=crop&w=1200&q=80'
+    ]
   },
   {
     id: 3,
@@ -26,7 +36,12 @@ const DEFAULT_PRODUCTS = [
     size: 'M',
     description: 'Camiseta box fit con estampado minimalista y tejido premium.',
     classification: 'box-fit',
-    image: 'https://images.unsplash.com/photo-1514996937319-344454492b37?auto=format&fit=crop&w=900&q=80'
+    image: 'https://images.unsplash.com/photo-1514996937319-344454492b37?auto=format&fit=crop&w=900&q=80',
+    gallery: [
+      'https://images.unsplash.com/photo-1514996937319-344454492b37?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1526178616032-7a1f8b89f5bf?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1525130413817-d45c1d127c42?auto=format&fit=crop&w=1200&q=80'
+    ]
   },
   {
     id: 4,
@@ -35,7 +50,142 @@ const DEFAULT_PRODUCTS = [
     size: 'One Size',
     description: 'Pañuelo con patrón moderno para completar tu outfit urbano.',
     classification: 'bandanas',
-    image: 'https://images.unsplash.com/photo-1529676468690-2f5b80bf9f87?auto=format&fit=crop&w=900&q=80'
+    image: 'https://images.unsplash.com/photo-1529676468690-2f5b80bf9f87?auto=format&fit=crop&w=900&q=80',
+    gallery: [
+      'https://images.unsplash.com/photo-1529676468690-2f5b80bf9f87?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=1200&q=80'
+    ]
+  },
+  {
+    id: 5,
+    name: 'Basic Boxfit – Black',
+    price: '$79,900',
+    size: 'M',
+    description: 'Corte relajado con estilo urbano premium.',
+    classification: 'box-fit',
+    image: 'https://images.unsplash.com/photo-1520975865985-e2cce8e5bbc4?auto=format&fit=crop&w=900&q=80',
+    gallery: [
+      'https://images.unsplash.com/photo-1520975865985-e2cce8e5bbc4?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1521572267360-ee0c0fb45a3b?auto=format&fit=crop&w=1200&q=80'
+    ]
+  },
+  {
+    id: 6,
+    name: 'Basic Boxfit – White',
+    price: '$79,900',
+    size: 'M',
+    description: 'Minimalismo blanco con detalles altos.',
+    classification: 'box-fit',
+    image: 'https://images.unsplash.com/photo-1521572267360-ee0c0fb45a3b?auto=format&fit=crop&w=900&q=80',
+    gallery: [
+      'https://images.unsplash.com/photo-1521572267360-ee0c0fb45a3b?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1495121605193-b116b5b9c5d1?auto=format&fit=crop&w=1200&q=80'
+    ]
+  },
+  {
+    id: 7,
+    name: 'Basic Oversize – White',
+    price: '$69,900',
+    size: 'L',
+    description: 'Silhouette amplia y cómoda para uso diario.',
+    classification: 'oversized',
+    image: 'https://images.unsplash.com/photo-1495121605193-b116b5b9c5d1?auto=format&fit=crop&w=900&q=80',
+    gallery: [
+      'https://images.unsplash.com/photo-1495121605193-b116b5b9c5d1?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1514996937319-344454492b37?auto=format&fit=crop&w=1200&q=80'
+    ]
+  },
+  {
+    id: 8,
+    name: 'Basic Boxfit – Sand',
+    price: '$79,900',
+    size: 'M',
+    description: 'Tono neutro con corte premium.',
+    classification: 'box-fit',
+    image: 'https://images.unsplash.com/photo-1526178616032-7a1f8b89f5bf?auto=format&fit=crop&w=900&q=80',
+    gallery: [
+      'https://images.unsplash.com/photo-1526178616032-7a1f8b89f5bf?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1525130413817-d45c1d127c42?auto=format&fit=crop&w=1200&q=80'
+    ]
+  },
+  {
+    id: 9,
+    name: 'Beanie Negro',
+    price: '$39,900',
+    size: 'One Size',
+    description: 'Gorro urbano con corte minimalista y textura suave.',
+    classification: 'beanies',
+    image: 'https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=900&q=80',
+    gallery: [
+      'https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1200&q=80'
+    ]
+  },
+  {
+    id: 10,
+    name: 'Beanie Vainilla',
+    price: '$39,900',
+    size: 'One Size',
+    description: 'Tono cálido para un look urbano sofisticado.',
+    classification: 'beanies',
+    image: 'https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb?auto=format&fit=crop&w=900&q=80',
+    gallery: [
+      'https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1525130413817-d45c1d127c42?auto=format&fit=crop&w=1200&q=80'
+    ]
+  },
+  {
+    id: 11,
+    name: 'Beanie Gris Neo',
+    price: '$39,900',
+    size: 'One Size',
+    description: 'Diseño contemporáneo con una paleta suave.',
+    classification: 'beanies',
+    image: 'https://images.unsplash.com/photo-1520975865985-e2cce8e5bbc4?auto=format&fit=crop&w=900&q=80',
+    gallery: [
+      'https://images.unsplash.com/photo-1520975865985-e2cce8e5bbc4?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1517153294491-81e3de4bd3c4?auto=format&fit=crop&w=1200&q=80'
+    ]
+  },
+  {
+    id: 12,
+    name: 'Beanie Gris',
+    price: '$39,900',
+    size: 'One Size',
+    description: 'Perfecto para un outfit monocromático premium.',
+    classification: 'beanies',
+    image: 'https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=900&q=80',
+    gallery: [
+      'https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=1200&q=80'
+    ]
+  },
+  {
+    id: 13,
+    name: 'Beanie Mostaza',
+    price: '$39,900',
+    size: 'One Size',
+    description: 'Acento de color con un estilo discreto.',
+    classification: 'beanies',
+    image: 'https://images.unsplash.com/photo-1517153294491-81e3de4bd3c4?auto=format&fit=crop&w=900&q=80',
+    gallery: [
+      'https://images.unsplash.com/photo-1517153294491-81e3de4bd3c4?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=1200&q=80'
+    ]
+  },
+  {
+    id: 14,
+    name: 'Beanie Borgoña',
+    price: '$39,900',
+    size: 'One Size',
+    description: 'Acabado premium con una caída sofisticada.',
+    classification: 'beanies',
+    image: 'https://images.unsplash.com/photo-1525130413817-d45c1d127c42?auto=format&fit=crop&w=900&q=80',
+    gallery: [
+      'https://images.unsplash.com/photo-1525130413817-d45c1d127c42?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb?auto=format&fit=crop&w=1200&q=80'
+    ]
   }
 ]
 
@@ -107,7 +257,8 @@ export async function getProducts() {
           size,
           description: p.description ? p.description.replace(/<[^>]+>/g, '').trim() : '',
           classification: category,
-          image: image || ''
+          image: image || '',
+          gallery: (p.images || []).map((item) => item.src).filter(Boolean)
         }
       })
 
@@ -126,6 +277,11 @@ export async function getProducts() {
       resolve(getStoredProducts())
     }, 300)
   })
+}
+
+export async function getProductById(id) {
+  const products = await getProducts()
+  return products.find((product) => `${product.id}` === `${id}`) || null
 }
 
 export async function createProduct(product) {

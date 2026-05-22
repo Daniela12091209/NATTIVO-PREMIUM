@@ -47,87 +47,85 @@ function Categories() {
           </p>
         </div>
 
-        <div className="grid gap-8 lg:grid-cols-[1fr_320px]">
-          <div className="space-y-8">
-            {error && (
-              <div className="rounded-[30px] border border-red-200 bg-red-50 p-8 text-red-700">
-                {error}
+        <div className="space-y-8">
+          {error && (
+            <div className="rounded-[30px] border border-red-200 bg-red-50 p-8 text-red-700">
+              {error}
+            </div>
+          )}
+
+          <div className="rounded-[30px] bg-white p-8 shadow-sm">
+            <div className="mb-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+              <div>
+                <p className="text-sm uppercase text-zinc-500">Listado de categorías</p>
+                <h2 className="text-4xl font-black">Todas las categorías</h2>
+              </div>
+              <span className="rounded-full bg-zinc-100 px-4 py-3 text-sm font-semibold text-zinc-700">
+                {loading ? 'Cargando…' : `${categorySummary} categorías visibles`}
+              </span>
+            </div>
+
+            {loading ? (
+              <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
+                {Array.from({ length: 6 }).map((_, index) => (
+                  <div key={index} className="h-72 animate-pulse rounded-[30px] bg-zinc-100"></div>
+                ))}
+              </div>
+            ) : (
+              <div className="categories-grid">
+                {categories.map((category) => (
+                  <article key={category.id} className="category-card group overflow-hidden rounded-[30px] border border-zinc-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+                    <div className="category-card-image relative overflow-hidden">
+                      <img
+                        src={category.image?.src || 'https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=900&q=80'}
+                        alt={category.image?.alt || category.name}
+                        className="h-72 w-full object-cover transition duration-500 group-hover:scale-105"
+                      />
+                    </div>
+                    <div className="space-y-4 p-6">
+                      <div className="flex items-center justify-between gap-4">
+                        <div>
+                          <h3 className="text-2xl font-black uppercase tracking-[0.03em]">{category.name}</h3>
+                          <p className="mt-2 text-sm text-zinc-500">{category.count} producto{category.count === 1 ? '' : 's'}</p>
+                        </div>
+                        <span className="rounded-full bg-red-600 px-4 py-2 text-xs uppercase tracking-[0.2em] text-white">
+                          {category.slug}
+                        </span>
+                      </div>
+
+                      {category.children?.length ? (
+                        <div className="rounded-[24px] bg-zinc-100 p-4 text-sm text-zinc-700">
+                          <p className="font-semibold uppercase tracking-[0.2em] text-zinc-500">Subcategorías</p>
+                          <ul className="mt-3 space-y-2">
+                            {category.children.map((child) => (
+                              <li key={child.id} className="flex items-center justify-between rounded-[18px] bg-white px-4 py-3 shadow-sm">
+                                <span>{child.name}</span>
+                                <span className="text-zinc-400">{child.count}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      ) : null}
+
+                      <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                        <Link
+                          to={CATEGORY_ROUTE[category.slug] || '/categories'}
+                          className="inline-flex items-center justify-center rounded-full bg-red-600 px-6 py-3 text-sm font-bold uppercase text-white transition hover:bg-red-700"
+                        >
+                          Ir a categoría
+                        </Link>
+                        <span className="text-xs uppercase tracking-[0.3em] text-zinc-500">
+                          {category.children?.length ? `${category.children.length} subcategoría(s)` : 'Sin subcategorías'}
+                        </span>
+                      </div>
+                    </div>
+                  </article>
+                ))}
               </div>
             )}
-
-            <div className="rounded-[30px] bg-white p-8 shadow-sm">
-              <div className="mb-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-                <div>
-                  <p className="text-sm uppercase text-zinc-500">Listado de categorías</p>
-                  <h2 className="text-4xl font-black">Todas las categorías</h2>
-                </div>
-                <span className="rounded-full bg-zinc-100 px-4 py-3 text-sm font-semibold text-zinc-700">
-                  {loading ? 'Cargando…' : `${categorySummary} categorías visibles`}
-                </span>
-              </div>
-
-              {loading ? (
-                <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
-                  {Array.from({ length: 6 }).map((_, index) => (
-                    <div key={index} className="h-72 animate-pulse rounded-[30px] bg-zinc-100"></div>
-                  ))}
-                </div>
-              ) : (
-                <div className="categories-grid">
-                  {categories.map((category) => (
-                    <article key={category.id} className="category-card group overflow-hidden rounded-[30px] border border-zinc-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
-                      <div className="category-card-image relative overflow-hidden">
-                        <img
-                          src={category.image?.src || 'https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=900&q=80'}
-                          alt={category.image?.alt || category.name}
-                          className="h-72 w-full object-cover transition duration-500 group-hover:scale-105"
-                        />
-                      </div>
-                      <div className="space-y-4 p-6">
-                        <div className="flex items-center justify-between gap-4">
-                          <div>
-                            <h3 className="text-2xl font-black uppercase tracking-[0.03em]">{category.name}</h3>
-                            <p className="mt-2 text-sm text-zinc-500">{category.count} producto{category.count === 1 ? '' : 's'}</p>
-                          </div>
-                          <span className="rounded-full bg-red-600 px-4 py-2 text-xs uppercase tracking-[0.2em] text-white">
-                            {category.slug}
-                          </span>
-                        </div>
-
-                        {category.children?.length ? (
-                          <div className="rounded-[24px] bg-zinc-100 p-4 text-sm text-zinc-700">
-                            <p className="font-semibold uppercase tracking-[0.2em] text-zinc-500">Subcategorías</p>
-                            <ul className="mt-3 space-y-2">
-                              {category.children.map((child) => (
-                                <li key={child.id} className="flex items-center justify-between rounded-[18px] bg-white px-4 py-3 shadow-sm">
-                                  <span>{child.name}</span>
-                                  <span className="text-zinc-400">{child.count}</span>
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                        ) : null}
-
-                        <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                          <Link
-                            to={CATEGORY_ROUTE[category.slug] || '/categories'}
-                            className="inline-flex items-center justify-center rounded-full bg-red-600 px-6 py-3 text-sm font-bold uppercase text-white transition hover:bg-red-700"
-                          >
-                            Ir a categoría
-                          </Link>
-                          <span className="text-xs uppercase tracking-[0.3em] text-zinc-500">
-                            {category.children?.length ? `${category.children.length} subcategoría(s)` : 'Sin subcategorías'}
-                          </span>
-                        </div>
-                      </div>
-                    </article>
-                  ))}
-                </div>
-              )}
-            </div>
           </div>
 
-          <aside className="rounded-[30px] border border-zinc-200 bg-white p-8 shadow-sm">
+          <div className="rounded-[30px] border border-zinc-200 bg-white p-8 shadow-sm">
             <h2 className="mb-6 text-2xl font-black">Detalles</h2>
             <p className="text-sm text-zinc-600 leading-7">
               Las categorías se agrupan por nivel. Las subcategorías se muestran junto a su categoría principal para una navegación más clara.
@@ -142,7 +140,7 @@ function Categories() {
                 <p className="mt-2 text-sm text-zinc-700">Replicación de WooCommerce con carga sensible y visual profesional.</p>
               </div>
             </div>
-          </aside>
+          </div>
         </div>
       </div>
     </section>

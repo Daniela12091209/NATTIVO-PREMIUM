@@ -1,4 +1,4 @@
-import { Facebook, Instagram, Twitter, Mail } from 'lucide-react'
+import { Globe, Link2, Share2, Mail } from 'lucide-react'
 
 function Footer() {
 
@@ -18,14 +18,14 @@ function Footer() {
               <div>
                 <p className="text-xs uppercase tracking-[0.1em] text-black/80 font-semibold mb-3">Síguenos</p>
                 <div className="flex gap-4">
-                  <a href="#" className="p-3 rounded-lg bg-black/5 hover:bg-red-600 hover:text-white transition" title="Facebook">
-                    <Facebook size={18} />
+                  <a href="#" className="p-3 rounded-lg bg-black/5 hover:bg-red-600 hover:text-white transition" title="Sitio web">
+                    <Globe size={18} />
                   </a>
-                  <a href="#" className="p-3 rounded-lg bg-black/5 hover:bg-red-600 hover:text-white transition" title="Instagram">
-                    <Instagram size={18} />
+                  <a href="#" className="p-3 rounded-lg bg-black/5 hover:bg-red-600 hover:text-white transition" title="Red social">
+                    <Share2 size={18} />
                   </a>
-                  <a href="#" className="p-3 rounded-lg bg-black/5 hover:bg-red-600 hover:text-white transition" title="Twitter">
-                    <Twitter size={18} />
+                  <a href="#" className="p-3 rounded-lg bg-black/5 hover:bg-red-600 hover:text-white transition" title="Enlaces">
+                    <Link2 size={18} />
                   </a>
                   <a href="#" className="p-3 rounded-lg bg-black/5 hover:bg-red-600 hover:text-white transition" title="Email">
                     <Mail size={18} />

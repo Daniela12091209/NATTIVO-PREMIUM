@@ -13,6 +13,7 @@ import BoxFitPage from './pages/BoxFitPage'
 import ProductFormPage from './pages/ProductFormPage'
 import AllProductsPage from './pages/AllProductsPage'
 import CategoriesPage from './pages/CategoriesPage'
+import ProductDetailPage from './pages/ProductDetailPage'
 import HomePage from './pages/HomePage'
 
 const NAV_ITEMS = [
@@ -55,6 +56,7 @@ function App() {
         <Route path="/box-fit" element={<BoxFitPage />} />
         <Route path="/categories" element={<CategoriesPage />} />
         <Route path="/products" element={<AllProductsPage />} />
+        <Route path="/product/:id" element={<ProductDetailPage />} />
         <Route path="/add-product" element={<ProductFormPage />} />
       </Routes>
     </BrowserRouter>
