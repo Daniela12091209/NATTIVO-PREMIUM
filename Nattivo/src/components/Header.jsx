@@ -6,19 +6,19 @@ function Header({ menuOpen, setMenuOpen, navItems = [], onLoginClick }) {
   return (
     <>
       <div className="sticky top-0 z-50">
-        <div className="h-1 bg-red-500" />
-        <nav className="bg-[#111111] text-white shadow-2xl">
-          <div className="mx-auto flex h-20 max-w-[1400px] items-center justify-between px-6">
+        <div className="h-1 bg-red-600" />
+        <nav className="bg-red-600 text-white shadow-lg">
+          <div className="mx-auto flex h-16 max-w-[1400px] items-center justify-between px-6">
             <button onClick={() => setMenuOpen(true)} className="md:hidden text-white/90 transition hover:text-white">
-              <Menu size={28} />
+              <Menu size={24} />
             </button>
 
-            <NavLink to="/" className="text-3xl font-black tracking-[0.35em] uppercase md:text-4xl">
-              NATTIVO
+            <NavLink to="/" className="text-2xl font-black tracking-[0.2em] uppercase md:text-2xl text-white">
+              nattivo
             </NavLink>
 
-            <div className="hidden md:flex items-center gap-8 text-sm font-semibold uppercase tracking-[0.12em] text-white/80">
-              {navItems.map((item) => (
+            <div className="hidden md:flex items-center gap-8 text-xs font-semibold uppercase tracking-[0.1em] text-white/80">
+              {navItems.slice(0, 7).map((item) => (
                 <NavLink
                   key={item.to}
                   to={item.to}
@@ -31,43 +31,43 @@ function Header({ menuOpen, setMenuOpen, navItems = [], onLoginClick }) {
               ))}
             </div>
 
-            <div className="hidden md:flex items-center gap-4">
-              <LoginButton onClick={onLoginClick} label="Iniciar sesión" />
-              <button className="rounded-full border border-white/20 p-2 transition hover:bg-white/10">
-                <ShoppingCart size={22} />
+            <div className="hidden md:flex items-center gap-3">
+              <button className="rounded-full border border-white/30 p-2 transition hover:bg-white/20">
+                <ShoppingCart size={18} className="text-white" />
               </button>
+              <LoginButton onClick={onLoginClick} label="Entrar" />
             </div>
           </div>
         </nav>
       </div>
 
       <div
-        className={`fixed inset-0 z-50 md:hidden bg-black/50 backdrop-blur-sm transition-opacity duration-300 ${
+        className={`fixed inset-0 z-50 md:hidden bg-black/40 backdrop-blur-sm transition-opacity duration-300 ${
           menuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
         }`}
       >
-        <div className={`fixed inset-y-0 left-0 z-50 w-80 transform bg-white text-black shadow-2xl transition-transform duration-300 ${menuOpen ? 'translate-x-0' : '-translate-x-full'}`}>
-          <div className="flex items-center justify-between border-b border-zinc-200 p-6">
-            <span className="text-lg font-black uppercase tracking-[0.2em]">Menú</span>
-            <button onClick={() => setMenuOpen(false)} className="rounded-full bg-zinc-100 px-3 py-2 text-lg font-bold transition hover:bg-zinc-200">
-              <X size={20} />
+        <div className={`fixed inset-y-0 left-0 z-50 w-72 transform bg-white text-black shadow-2xl transition-transform duration-300 ${menuOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+          <div className="flex items-center justify-between border-b border-black/10 p-6">
+            <span className="text-sm font-black uppercase tracking-[0.15em]">Menú</span>
+            <button onClick={() => setMenuOpen(false)} className="rounded-full bg-black/5 p-2 text-sm font-bold transition hover:bg-black/10">
+              <X size={18} />
             </button>
           </div>
-          <div className="flex flex-col gap-4 p-6 text-base font-semibold">
+          <div className="flex flex-col gap-2 p-6 text-sm font-semibold">
             {navItems.map((item) => (
               <NavLink
                 key={item.to}
                 to={item.to}
                 onClick={() => setMenuOpen(false)}
                 className={({ isActive }) =>
-                  `rounded-3xl px-4 py-3 transition hover:bg-zinc-50 ${isActive ? 'bg-red-50 text-red-600' : 'text-black/80'}`
+                  `rounded-lg px-4 py-2 transition uppercase text-xs tracking-[0.1em] ${isActive ? 'bg-red-50 text-red-600' : 'text-black/70 hover:bg-black/5'}`
                 }
               >
                 {item.label}
               </NavLink>
             ))}
-            <button onClick={onLoginClick} className="mt-6 rounded-full bg-black px-4 py-3 text-sm font-bold uppercase text-white transition hover:bg-zinc-900">
-              Iniciar sesión
+            <button onClick={onLoginClick} className="mt-6 rounded-lg bg-red-600 px-4 py-3 text-xs font-bold uppercase text-white transition hover:bg-red-700 tracking-[0.1em]">
+              Entrar
             </button>
           </div>
         </div>

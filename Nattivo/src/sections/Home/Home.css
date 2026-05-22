@@ -1,37 +1,13 @@
 .home-hero {
-  min-height: 88vh;
+  min-height: auto;
   position: relative;
   display: grid;
   place-items: center;
-}
-
-.home-hero-video {
-  position: absolute;
-  inset: 0;
-  height: 100%;
-  width: 100%;
-  object-fit: cover;
-  opacity: 0.28;
-}
-
-.home-hero-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.92) 100%);
-}
-
-.home-hero-content {
-  position: relative;
-  z-index: 1;
 }
 
 .home-hero-actions {
   display: grid;
   place-items: center;
-}
-
-.home-hero-button {
-  box-shadow: 0 18px 45px rgba(255, 255, 255, 0.14);
 }
 
 .home-categories article,
@@ -41,11 +17,31 @@
 
 .home-categories img,
 .home-products img {
-  min-height: 220px;
+  min-height: 180px;
+  transition: transform 0.5s ease;
 }
 
 .home-categories {
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.home-products {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Animaciones interactivas */
+.home-categories article:hover {
+  transform: translateY(-8px);
+}
+
+.home-products article:hover {
+  transform: translateY(-8px);
+}
+
+@media (max-width: 768px) {
+  .home-hero {
+    min-height: auto;
+  }
 }
 
 .home-products {
